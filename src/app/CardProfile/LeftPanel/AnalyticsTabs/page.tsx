@@ -91,7 +91,7 @@ const GraphContent: React.FC<ContentProps> = ({ type }) => {
 
 const currentChartData = chartData[type];
   return (
-    <div>
+    <div className='flex items-center h-full' >
     <div className="m-auto w-[100%] overflow-hidden">
       <DynamicBarChart data={currentChartData} />
     </div>

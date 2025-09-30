@@ -1,8 +1,14 @@
 // components/RightPanel.jsx
+
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import WeeklyNudges from "./WeeklyNudges";
 import Link from "next/link";
 const RightPanel = () => {
+
+  const [activeTab, setActiveTab] = useState<"weekly" | "local">("weekly");
+
   return (
     <div className="rounded-xl bg-[#F4F8FF] p-5">
       {/* Header Section */}
@@ -56,7 +62,7 @@ const RightPanel = () => {
         <div className="">
           <p className="text-lg text-[#03070D] leading-relaxed">
             Please provide the detailed analytics for the video uploaded by
-            Bharat Rawat, including the video file, transcript and relevant
+            Aniket Salvi, including the video file, transcript and relevant
             indexes
           </p>
 
@@ -194,21 +200,46 @@ const RightPanel = () => {
         </div>
       </div>
 
-        <div>
-          <div className="flex items-center gap-2.5 mb-6 mt-11">
-            <Image
-            src={'/images/icons/format.svg'}
-            alt={'icon'}
+      <div>
+        <div className="flex items-center gap-10 mb-6 mt-11 bg-white w-[calc(100%_+_2.5rem)] ml-[-1.25rem] px-5 py-1">
+          {/* <Image
+            src={"/images/icons/format.svg"}
+            alt={"icon"}
             width={20}
             height={20}
             className="w-7 h-7"
-            />
-            <span className="text-lg font-medium text-[#03070D]">Weekly Nudges</span>
-          </div>
-          <div className="space-y-2">
-              <WeeklyNudges nudges={nudges} />
-          </div>
+          /> */}
+          <button
+            onClick={() => setActiveTab("weekly")}
+            className={`text-lg font-medium cursor-pointer py-2.5 ${
+              activeTab === "weekly" ? "border-b-2 border-[#6243F0]" : "text-[#03070D]"
+            }`}
+          >
+            Weekly Nudges
+          </button>
+          {/* <span className="text-lg font-medium text-[#03070D]">/</span> */}
+          <button
+            onClick={() => setActiveTab("local")}
+            className={`text-lg font-medium cursor-pointer py-2.5 ${
+              activeTab === "local" ? "border-b-2 border-[#6243F0]" : "text-[#03070D]"
+            }`}
+          >
+            साप्ताहिक संकेत
+          </button>
         </div>
+
+        {activeTab === "weekly" && (
+          <div className="space-y-2">
+            <WeeklyNudges nudges={nudges} />
+          </div>
+        )}
+
+        {activeTab === "local" && (
+          <div className="space-y-2">
+            <WeeklyNudges nudges={LocalNudges} />
+          </div>
+        )}
+    </div>
 
 
 
@@ -216,10 +247,15 @@ const RightPanel = () => {
   );
 };
 
+
+
 const nudges = [
   { id: 1, title: "", description: "Hi Deepak, your explanations of features like the coin design drum really hit the mark—customers can see the value right away. This week, try adding a short pause after each big point, like after zero-pressure tech, to give folks time to take it in. You're off to a great start—keep building on that! 😊" },
   { id: 2, title: "", description: "Deepak, the hands-on demo with the pulsator at 01:55 was spot on for making things clear. Just a gentle reminder: After showing a feature, glance back at your customer for a quick connection—it strengthens that trust. You've got such a natural way with it. 👀" },
-
+];
+const LocalNudges = [
+  { id: 1, title: "", description: "हाय दीपक, 'कॉइन डिज़ाइन ड्रम' जैसे फीचर्स को आप जिस तरह समझाते हैं, वह बहुत असरदार है—ग्राहकों को इसका फायदा तुरंत समझ आ जाता है। इस हफ़्ते, हर बड़े पॉइंट के बाद एक छोटा सा ठहराव लेने की कोशिश करें, जैसे 'ज़ीरो-प्रेशर टेक' के बारे में बताने के बाद, ताकि लोगों को उसे समझने का समय मिले। आपकी शुरुआत बहुत अच्छी है—इसे और बेहतर बनाते रहें! 😊" },
+  { id: 2, title: "", description: "दीपक, [01:55] पर पल्सेटर का आपका हैंड्स-ऑन डेमो चीज़ों को स्पष्ट करने के लिए एकदम सटीक था। बस एक छोटा सा सुझाव: कोई फीचर दिखाने के बाद, ग्राहक से तुरंत जुड़ने के लिए उनकी ओर देखें—इससे भरोसा मजबूत होता है। आप इसे बहुत सहज तरीके से करते हैं। 👀" },
 ];
 
 const structuredData = [
